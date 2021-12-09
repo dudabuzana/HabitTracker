@@ -8,39 +8,37 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-public class AlteracaoPerfilActivity extends AppCompatActivity {
+public class AlteracaoSenhaActivity extends AppCompatActivity {
 
     ImageView btnVoltar;
     Button btnAlterar;
-    EditText edtNome;
-    EditText edtEmail;
-    EditText edtDataNascimento;
+    EditText edtSenhaAntiga;
+    EditText edtSenhaNova;
 
     Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alteracao_perfil);
+        setContentView(R.layout.activity_alteracao_senha);
         initComponents();
 
         btnVoltar.setOnClickListener( v -> {
-            i = new Intent(AlteracaoPerfilActivity.this, BottomNavigationActivity.class);
+            i = new Intent(AlteracaoSenhaActivity.this, BottomNavigationActivity.class);
             startActivity(i);
         });
 
         btnAlterar.setOnClickListener( v -> {
-            i = new Intent(AlteracaoPerfilActivity.this, BottomNavigationActivity.class);
+            i = new Intent(AlteracaoSenhaActivity.this, BottomNavigationActivity.class);
             startActivity(i);
         });
-
     }
 
     private void initComponents() {
-        btnVoltar = findViewById(R.id.btnVoltar);
-        btnAlterar = findViewById(R.id.btnAlteracao);
-        edtNome = findViewById(R.id.edtNomeAlteracao);
-        edtDataNascimento = findViewById(R.id.edtDataAlteracao);
-        edtEmail = findViewById(R.id.edtEmailAlteracao);
+        btnVoltar = findViewById(R.id.btnVoltarAlteracaoSenha);
+        btnAlterar = findViewById(R.id.btnAlteracaoSenha);
+        edtSenhaAntiga = findViewById(R.id.edtSenhaAntiga);
+        edtSenhaNova = findViewById(R.id.edtSenhaNova);
     }
+
 }

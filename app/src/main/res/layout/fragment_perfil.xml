@@ -9,7 +9,7 @@
         android:id="@+id/btnSair"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="240dp"
         android:backgroundTint="@color/primaryDark"
         android:text="Sair"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,10 +41,22 @@
         android:id="@+id/btnAlterarPerfil"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="@color/primaryDark"
         android:text="ALTERAR PERFIL"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btnAlterarSenha"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="160dp"
+        android:backgroundTint="@color/primaryDark"
+        android:text="ALTERAR SENHA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

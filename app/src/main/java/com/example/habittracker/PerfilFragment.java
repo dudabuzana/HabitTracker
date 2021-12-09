@@ -16,6 +16,7 @@ public class PerfilFragment extends Fragment {
 
     private Button btnSair;
     private Button btnAlterarPerfil;
+    private Button btnAlterarSenha;
     private View view;
 
     Intent i;
@@ -24,8 +25,7 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_perfil, container, false);
-        btnSair = view.findViewById(R.id.btnSair);
-        btnAlterarPerfil = view.findViewById(R.id.btnAlterarPerfil);
+        initComponents();
 
         btnSair.setOnClickListener(v -> {
             i = new Intent(getContext(), MainActivity.class);
@@ -37,7 +37,18 @@ public class PerfilFragment extends Fragment {
             startActivity(i);
         });
 
+        btnAlterarSenha.setOnClickListener(v -> {
+            i = new Intent(getContext(), AlteracaoSenhaActivity.class);
+            startActivity(i);
+        });
+
         return view;
+    }
+
+    private void initComponents() {
+        btnSair = view.findViewById(R.id.btnSair);
+        btnAlterarPerfil = view.findViewById(R.id.btnAlterarPerfil);
+        btnAlterarSenha = view.findViewById(R.id.btnAlterarSenha);
     }
 
 }

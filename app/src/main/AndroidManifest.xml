@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HabitTracker">
         <activity
+            android:name=".AlteracaoSenhaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CadastroHabitoActivity"
+            android:exported="true" />
+        <activity
             android:name=".AlteracaoPerfilActivity"
             android:exported="true" />
         <activity

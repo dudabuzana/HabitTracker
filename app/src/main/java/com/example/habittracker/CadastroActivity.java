@@ -27,14 +27,14 @@ public class CadastroActivity extends AppCompatActivity {
         initComponents();
 
 
-    btnVoltar.setOnClickListener( v -> {
-        i = new Intent(CadastroActivity.this, MainActivity.class);
-        startActivity(i);
-    });
+        btnVoltar.setOnClickListener( v -> {
+            i = new Intent(CadastroActivity.this, MainActivity.class);
+            startActivity(i);
+        });
 
-    btnCadastro.setOnClickListener(v -> {
+        btnCadastro.setOnClickListener(v -> {
 
-    });
+        });
 
     }
 
