@@ -2,24 +2,37 @@ package com.example.habittracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.habittracker.model.User;
+import com.example.habittracker.retrofit.RetrofitInitializer;
+import com.example.habittracker.utils.Utils;
+import com.google.android.material.shadow.ShadowRenderer;
+import com.google.gson.Gson;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AlteracaoPerfilActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE = 1888;
     ImageView btnVoltar;
-    Button    btnAlterar;
-    Button    btnUploadFoto;
-    EditText  edtNome;
-    EditText  edtEmail;
-    EditText  edtDataNascimento;
+    Button btnAlterar;
+    EditText edtNome;
+    EditText edtEmail;
+    EditText edtDataNascimento;
+    User user;
 
     Intent i;
 
@@ -28,53 +41,88 @@ public class AlteracaoPerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alteracao_perfil);
         initComponents();
+        preencherFormulario();
 
         btnVoltar.setOnClickListener( v -> {
             i = new Intent(AlteracaoPerfilActivity.this, BottomNavigationActivity.class);
             startActivity(i);
         });
 
-        btnAlterar.setOnClickListener( v -> {
-            i = new Intent(AlteracaoPerfilActivity.this, BottomNavigationActivity.class);
-            startActivity(i);
-        });
+        btnAlterar.setOnClickListener(v -> {
+            String nome = edtNome.getText().toString();
+            String email = edtEmail.getText().toString();
+            String dataNascimento = edtDataNascimento.getText().toString();
+            String foto = "";
+            if(nome.isEmpty() || email.isEmpty() || dataNascimento.isEmpty()){
+                Toast.makeText(AlteracaoPerfilActivity.this, "Todos os Campos são Obrigatórios", Toast.LENGTH_SHORT).show();
+            }else{
+                User userEdit = new User(nome, dataNascimento, email, foto, user.getSenha());
 
-        btnUploadFoto.setOnClickListener( v -> {
-            i = new Intent();
-            i.setType("image/*");
-            i.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(i, "Select Picture"), REQUEST_CODE);
-            startActivity(i);
-        });
+                Call<User> call = new RetrofitInitializer().getActions().updateUser(user.getId(),userEdit);
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.isSuccessful()){
+                            User userRetornado = response.body();
+                            Toast.makeText(AlteracaoPerfilActivity.this, "Usuário Alterado Com Sucesso!", Toast.LENGTH_LONG).show();
+                            
+                            user.setNome(userRetornado.getNome());
+                            user.setEmail(userRetornado.getEmail());
+                            user.setDataNascimento(userRetornado.getDataNascimento());
 
-    }
+                            Gson gson = new Gson();
+                            String userJSON = gson.toJson(user);
 
-    //Seleção da Imagem
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            switch (requestCode) {
-                case REQUEST_CODE:
-                    if (resultCode == Activity.RESULT_OK) {
-                        //bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                        //data gives you the image uri. Try to convert that to bitmap
-                        break;
-                    } else if (resultCode == Activity.RESULT_CANCELED) {
+                            SharedPreferences sharedPreferences;
+                            sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("UserLogged", userJSON);
+                            editor.apply();
+
+                        }else{
+                            Toast.makeText(AlteracaoPerfilActivity.this, response.message(), Toast.LENGTH_LONG).show();
+                        }
                     }
-                    break;
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Toast.makeText(AlteracaoPerfilActivity.this, t.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        });
+
     }
 
     private void initComponents() {
-        btnVoltar         = findViewById(R.id.btnVoltar);
-        btnAlterar        = findViewById(R.id.btnAlteracao);
-        btnUploadFoto     = findViewById(R.id.btnUploadFoto);
-        edtNome           = findViewById(R.id.edtNomeAlteracao);
+        btnVoltar = findViewById(R.id.btnVoltar);
+        btnAlterar = findViewById(R.id.btnAlteracao);
+        edtNome = findViewById(R.id.edtNomeAlteracao);
         edtDataNascimento = findViewById(R.id.edtDataAlteracao);
-        edtEmail          = findViewById(R.id.edtEmailAlteracao);
+        edtEmail = findViewById(R.id.edtEmailAlteracao);
+    }
+
+    private void preencherFormulario(){
+        SharedPreferences sharedPreferences;
+        sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+
+        String result = sharedPreferences.getString("UserLogged", "");
+        Gson gson = new Gson();
+
+        user = gson.fromJson(result, User.class);
+
+        edtNome.setText(user.getNome());
+        String dataFormatada = "";
+        if(user.getDataNascimento().length() > 11){
+            Utils utils = new Utils();
+            dataFormatada = utils.formataData(user.getDataNascimento());
+
+        }else{
+            dataFormatada = user.getDataNascimento();
+        }
+
+        edtDataNascimento.setText(dataFormatada);
+        edtEmail.setText(user.getEmail());
     }
 }
