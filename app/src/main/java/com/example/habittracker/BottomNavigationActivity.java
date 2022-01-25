@@ -34,6 +34,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
                     selectedFragment = new FeedFragment();
                     break;
                 case R.id.navigation_graficos:
+                    selectedFragment = new GraficosFragment();
                     break;
                 case R.id.navigation_perfil:
                     selectedFragment = new PerfilFragment();

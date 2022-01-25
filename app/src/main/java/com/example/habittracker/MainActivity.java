@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +21,8 @@ import com.example.habittracker.retrofit.RetrofitInitializer;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
     });
 
     btnLogin.setOnClickListener(v -> {
+
+       // i = new Intent(MainActivity.this, BottomNavigationActivity.class);
+       // startActivity(i);
+
         if(edtEmail.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty()){
             Toast.makeText(MainActivity.this, "E-Mail e Senha são obrigatórios", Toast.LENGTH_LONG).show();
         }else{
@@ -78,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, t.toString(), Toast.LENGTH_LONG).show();
                 }
             });
-
         }
     });
 
