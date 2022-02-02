@@ -20,7 +20,8 @@ import com.example.habittracker.model.User;
 import com.example.habittracker.retrofit.RetrofitInitializer;
 import com.google.gson.Gson;
 
-import retrofit2.Call;
+/* Comentei pois minha conexão com a API não está funcionando */
+/*import retrofit2.Call;*/
 import retrofit2.Response;
 import retrofit2.Callback;
 
@@ -41,50 +42,52 @@ public class MainActivity extends AppCompatActivity {
         initComponents();
         verificaUsuarioLogado();
 
-    cadastro.setOnClickListener(v -> {
-        i = new Intent(MainActivity.this, CadastroActivity.class);
-        startActivity(i);
-    });
+        cadastro.setOnClickListener(v -> {
+            i = new Intent(MainActivity.this, CadastroActivity.class);
+            startActivity(i);
+        });
 
-    btnLogin.setOnClickListener(v -> {
+        btnLogin.setOnClickListener(v -> {
 
-       // i = new Intent(MainActivity.this, BottomNavigationActivity.class);
-       // startActivity(i);
+            i = new Intent(MainActivity.this, BottomNavigationActivity.class);
+            startActivity(i);
 
-        if(edtEmail.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty()){
-            Toast.makeText(MainActivity.this, "E-Mail e Senha são obrigatórios", Toast.LENGTH_LONG).show();
-        }else{
-            String email = edtEmail.getText().toString();
-            String senha = edtSenha.getText().toString();
-            LoginJSON loginJSON = new LoginJSON(email, senha);
-            Call<User> call = new RetrofitInitializer().getActions().loginUser(loginJSON);
-            call.enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    if(response.isSuccessful()){
-                        User user = response.body();
-                        Gson gson = new Gson();
-                        String userJSON = gson.toJson(user);
+            /* Comentei pois minha conexão com a API não está funcionando */
+            /*
+            if(edtEmail.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty()){
+                Toast.makeText(MainActivity.this, "E-Mail e Senha são obrigatórios", Toast.LENGTH_LONG).show();
+            }else{
+                String email = edtEmail.getText().toString();
+                String senha = edtSenha.getText().toString();
+                LoginJSON loginJSON = new LoginJSON(email, senha);
+                Call<User> call = new RetrofitInitializer().getActions().loginUser(loginJSON);
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.isSuccessful()){
+                            User user = response.body();
+                            Gson gson = new Gson();
+                            String userJSON = gson.toJson(user);
 
-                        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                        editor.putString("UserLogged", userJSON);
-                        editor.apply();
-                        i = new Intent(MainActivity.this, BottomNavigationActivity.class);
-                        startActivity(i);
-                    }else{
-                        Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_LONG).show();
+                            editor.putString("UserLogged", userJSON);
+                            editor.apply();
+                            i = new Intent(MainActivity.this, BottomNavigationActivity.class);
+                            startActivity(i);
+                        }else{
+                            Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
 
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, t.toString(), Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-    });
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, t.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            } */
+        });
 
     }
 
