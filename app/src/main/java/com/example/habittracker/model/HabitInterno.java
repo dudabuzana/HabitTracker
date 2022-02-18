@@ -1,21 +1,37 @@
 package com.example.habittracker.model;
 
-public class Habit {
+public class HabitInterno {
     private String  idhabito;
     private String  nome;
     private String  descricao;
     private String  icone;
     private boolean ativo;
     private String cor;
-    private String usuario; //id
+    private User usuario; //id
 
-    public Habit(String nome, String icone, String descricao, boolean ativo, String cor, String usuario) {
+    public HabitInterno(String nome, String icone, String descricao, boolean ativo, String cor, User usuario) {
         this.nome      = nome;
         this.descricao = descricao;
         this.icone     = icone;
         this.ativo     = ativo;
         this.cor       = cor;
         this.usuario   = usuario;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public User getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
     }
 
     public String getIdhabito() {

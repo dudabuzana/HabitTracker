@@ -20,7 +20,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bottom_navigation);
 
         BottomNavigationView bottonNav = findViewById(R.id.bottom_navigation);
-        bottonNav.setOnNavigationItemSelectedListener(navListener);
+       bottonNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
     }
 
