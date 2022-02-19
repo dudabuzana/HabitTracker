@@ -54,7 +54,7 @@ public class CadastroHabitoActivity extends AppCompatActivity {
 
                 User user = gson.fromJson(result, User.class);
 
-                Habit habit = new Habit(nomeHabito, "", descricaoHabito, true, "", user.getId());
+                Habit habit = new Habit(nomeHabito, descricaoHabito, true, "", user.getId());
                 retrofit2.Call<Habit> call = new RetrofitInitializer().getActions().createHabito(habit);
                 call.enqueue(new Callback<Habit>() {
                     @Override

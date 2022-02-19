@@ -4,17 +4,15 @@ public class Habit {
     private String  idhabito;
     private String  nome;
     private String  descricao;
-    private String  icone;
     private boolean ativo;
-    private String cor;
     private String usuario; //id
+    private String horario;
 
-    public Habit(String nome, String icone, String descricao, boolean ativo, String cor, String usuario) {
+    public Habit(String nome, String descricao, boolean ativo, String horario, String usuario) {
         this.nome      = nome;
         this.descricao = descricao;
-        this.icone     = icone;
+        this.horario     = horario;
         this.ativo     = ativo;
-        this.cor       = cor;
         this.usuario   = usuario;
     }
 
@@ -42,11 +40,27 @@ public class Habit {
 
     public void setDescricao(String descricao) { this.descricao = descricao; }
 
-    public String getIcone() {
-        return icone;
+    public boolean isAtivo() {
+        return ativo;
     }
 
-    public void setIcone(String foto) {
-        this.icone = foto;
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 }

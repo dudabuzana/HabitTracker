@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "221431225817",
+    "project_id": "habit-tracker-dudaeloje",
+    "storage_bucket": "habit-tracker-dudaeloje.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221431225817:android:662b4066caa55fcebdcdc8",
+        "android_client_info": {
+          "package_name": "com.example.habittracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221431225817-hont4i90ihu36k61a97a8nsr384a1g0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuYgBZI5Gau5rN49lwopthPI9-Jja3muU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221431225817-hont4i90ihu36k61a97a8nsr384a1g0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

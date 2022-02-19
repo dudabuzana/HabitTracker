@@ -36,6 +36,9 @@ public interface Service {
     @POST("habit")
     Call<Habit> createHabito(@Body Habit habito);
 
+    @PUT("habit/{id}")
+    Call<Habit> updateHabito(@Path("id") String id, @Body Habit habito);
+
     @GET("all-habits/{id}")
     Call<List<HabitInterno>> listaTodosHabitos(@Path("id") String id);
 

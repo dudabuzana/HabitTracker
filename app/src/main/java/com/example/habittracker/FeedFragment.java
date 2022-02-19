@@ -194,22 +194,26 @@ public class FeedFragment extends Fragment {
             public void onResponse(Call<List<HabitInterno>> call, Response<List<HabitInterno>> response) {
                 if(response.isSuccessful()){
                     habitList = response.body();
-                    Toast.makeText(getContext(), "Linha 214 - " + habitList.size(), Toast.LENGTH_LONG).show();
+
                     MyAdapter myAdapter = new MyAdapter(getContext(), habitList);
 
                     RecyclerFeed.setLayoutManager(new LinearLayoutManager(getContext()));
 //                    RecyclerFeed.setHasFixedSize(true);
-                    RecyclerFeed.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayout.VERTICAL));
+                    //RecyclerFeed.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayout.VERTICAL));
                     RecyclerFeed.setAdapter(myAdapter);
 
                     myAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position) {
-//                            HabitInterno habit = habitList.get(position);
+                            HabitInterno habit = habitList.get(position);
 //                            CumprimentoHabitoActivity myFrag = new CumprimentoHabitoActivity();
 //                            getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, myFrag).commit();
-                            Toast.makeText(getContext(), "Caiu no CLICK", Toast.LENGTH_LONG).show();
+
+                            Gson gson = new Gson();
+                            String habitoSelecionado = gson.toJson(habit);
+
                             i = new Intent(getContext(), CumprimentoHabitoActivity.class);
+                            i.putExtra("habitoSelecionado", habitoSelecionado);
                             startActivity(i);
                         }
                     });

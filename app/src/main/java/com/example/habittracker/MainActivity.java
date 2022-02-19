@@ -13,10 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+
 import com.example.habittracker.databinding.FragmentPerfilBinding;
 import com.example.habittracker.model.LoginJSON;
 import com.example.habittracker.model.User;
 import com.example.habittracker.retrofit.RetrofitInitializer;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 
 /* Comentei pois minha conexão com a API não está funcionando */
@@ -34,12 +41,15 @@ public class MainActivity extends AppCompatActivity {
     EditText edtEmail;
     EditText edtSenha;
     ImageView logo;
+    SignInButton login_botao_signin_google;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
+        login_botao_signin_google.setSize(SignInButton.SIZE_STANDARD);
         verificaUsuarioLogado();
 
         cadastro.setOnClickListener(v -> {
@@ -47,12 +57,18 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+
+        login_botao_signin_google.setOnClickListener(v -> {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+                    .requestIdToken("221431225817-hont4i90ihu36k61a97a8nsr384a1g0c.apps.googleusercontent.com")
+                    .requestEmail()
+                    .build();
+            GoogleSignInClient cliente = GoogleSignIn.getClient(this, gso);
+
+            startActivityForResult(cliente.getSignInIntent(), 11);
+        });
+
         btnLogin.setOnClickListener(v -> {
-
-            i = new Intent(MainActivity.this, BottomNavigationActivity.class);
-            startActivity(i);
-
-
 
             if(edtEmail.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty()){
                 Toast.makeText(MainActivity.this, "E-Mail e Senha são obrigatórios", Toast.LENGTH_LONG).show();
@@ -97,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtSenha = findViewById(R.id.edtSenha);
         logo = findViewById(R.id.logo);
+        login_botao_signin_google = findViewById(R.id.login_botao_signin_google);
         logo.setVisibility(View.VISIBLE);
     }
 
@@ -111,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         }
     }
+
 
 
 }
